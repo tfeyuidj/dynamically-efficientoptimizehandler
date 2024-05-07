@@ -1,28 +1,19 @@
-function reorderList(head) {
-  if (!head || !head.next) return;
-  let slow = head;
-  let fast = head;
-  while (fast.next && fast.next.next) {
-    slow = slow.next;
-    fast = fast.next.next;
+const quickSortRandomPivot = (arr) => {
+  if (arr.length <= 1) {
+    return arr;
   }
-  let prev = null;
-  let curr = slow.next;
-  slow.next = null;
-  while (curr) {
-    const next = curr.next;
-    curr.next = prev;
-    prev = curr;
-    curr = next;
+  const pivotIndex = Math.floor(Math.random() * arr.length);
+  const pivot = arr[pivotIndex];
+  const left = [];
+  const right = [];
+  for (let i = 0; i < arr.length; i++) {
+    if (i !== pivotIndex) {
+      if (arr[i] <= pivot) {
+        left.push(arr[i]);
+      } else {
+        right.push(arr[i]);
+      }
+    }
   }
-  let first = head;
-  let second = prev;
-  while (second) {
-    const nextFirst = first.next;
-    const nextSecond = second.next;
-    first.next = second;
-    second.next = nextFirst;
-    first = nextFirst;
-    second = nextSecond;
-  }
-}
+  return quickSortRandomPivot(left).concat(pivot, quickSortRandomPivot(right));
+};
