@@ -1,19 +1,8 @@
-const quickSortRandomPivot = (arr) => {
-  if (arr.length <= 1) {
-    return arr;
-  }
-  const pivotIndex = Math.floor(Math.random() * arr.length);
-  const pivot = arr[pivotIndex];
-  const left = [];
-  const right = [];
-  for (let i = 0; i < arr.length; i++) {
-    if (i !== pivotIndex) {
-      if (arr[i] <= pivot) {
-        left.push(arr[i]);
-      } else {
-        right.push(arr[i]);
-      }
-    }
-  }
-  return quickSortRandomPivot(left).concat(pivot, quickSortRandomPivot(right));
-};
+function sortedArrayToBST(nums) {
+  if (!nums.length) return null;
+  const mid = Math.floor(nums.length / 2);
+  const root = new TreeNode(nums[mid]);
+  root.left = sortedArrayToBST(nums.slice(0, mid));
+  root.right = sortedArrayToBST(nums.slice(mid + 1));
+  return root;
+}
